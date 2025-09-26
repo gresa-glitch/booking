@@ -1,0 +1,9 @@
+[29-Apr-2025 05:48:10 Asia/Jakarta] PHP Fatal error:  Cannot access private property Assigment::$_table_operator_active in /home/gresapsc/gresaps.my.id/admin/system/core/Model.php on line 74
+[18-Jul-2025 10:04:18 Asia/Jakarta] PHP Parse error:  syntax error, unexpected '--' (T_DEC) in /home/gresapsc/gresaps.my.id/admin/application/views/assigment/index.php on line 186
+[18-Jul-2025 10:47:30 Asia/Jakarta] PHP Fatal error:  Cannot access empty property in /home/gresapsc/gresaps.my.id/admin/system/core/Model.php on line 74
+[18-Jul-2025 10:49:09 Asia/Jakarta] PHP Fatal error:  Cannot access empty property in /home/gresapsc/gresaps.my.id/admin/system/core/Model.php on line 74
+[18-Jul-2025 10:52:23 Asia/Jakarta] PHP Fatal error:  Cannot access empty property in /home/gresapsc/gresaps.my.id/admin/system/core/Model.php on line 74
+[18-Jul-2025 10:54:29 Asia/Jakarta] PHP Parse error:  syntax error, unexpected 'endforeach' (T_ENDFOREACH) in /home/gresapsc/gresaps.my.id/admin/application/views/assigment/index.php on line 238
+[18-Jul-2025 10:54:35 Asia/Jakarta] PHP Parse error:  syntax error, unexpected 'endforeach' (T_ENDFOREACH) in /home/gresapsc/gresaps.my.id/admin/application/views/assigment/index.php on line 238
+[18-Jul-2025 10:55:58 Asia/Jakarta] PHP Parse error:  syntax error, unexpected 'endforeach' (T_ENDFOREACH) in /home/gresapsc/gresaps.my.id/admin/application/views/assigment/index.php on line 238
+[18-Jul-2025 10:58:06 Asia/Jakarta] PHP Parse error:  syntax error, unexpected '--' (T_DEC) in /home/gresapsc/gresaps.my.id/admin/application/views/assigment/index.php on line 209
