@@ -63,7 +63,7 @@
                 <div class="card h-100 shadow-sm">
                     <div class="card-header bg-primary text-white text-center">
                         <h4 class="mb-0">Paket Basic</h4>
-                        <small>Rp 350.000</small>
+                        <small>Rp 360.000</small>
                     </div>
                     <div class="card-body">
                         <ul>
