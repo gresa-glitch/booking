@@ -2,6 +2,8 @@
     const selectBox = document.getElementById('id_book');
     const grandtotal = document.getElementById('payment_total');
     const boxDetailOrder = document.getElementById('col-detail-order');
+    // ambil id preview card
+    const cardPreview = document.getElementById('previewFileCard');
     // ambil id detail order untuk list
     const tblcustomer = document.getElementById('customer');
     const tblPackage = document.getElementById('package');
@@ -9,6 +11,9 @@
     const tblPrice = document.getElementById('price');
 
     boxDetailOrder.style.display = "none";
+
+    cardPreview.style.display = "none";
+
 
 // Menambahkan event listener untuk 'change' event
 selectBox.addEventListener('change', function() {
@@ -34,7 +39,7 @@ selectBox.addEventListener('change', function() {
     tblPrice.textContent = packagePriceRupiah;
 });
 
-function bacaGambar(input) {
+function previewFile(input) {
   if(input.files && input.files[0]){
     var reader = new FileReader();
     reader.onload = function (e) {
@@ -45,7 +50,6 @@ function bacaGambar(input) {
 }
 
 $('#payment_rec').change(function(){
-  bacaGambar(this);
+  previewFile(this);
+  cardPreview.style.display = "block";
 })
-
-new DataTable('#customer');

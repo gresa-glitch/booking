@@ -46,12 +46,8 @@
        <!-- Place this tag in your head or just before your close body tag. -->
        <script async defer src="https://buttons.github.io/buttons.js"></script>
 
-       <script src="<?= base_url(); ?>vendor/dataTables/jquery-3.7.1.js"></script>
-       <script src="<?= base_url(); ?>vendor/dataTables/bootstrap.bundle.min.js"></script>
-       <script src="<?= base_url(); ?>vendor/dataTables/datatables.js"></script>
-       <script src="<?= base_url(); ?>vendor/dataTables/dataTables.bootstrap5.js"></script>
        <script src="<?= base_url('_assets/') ?>js/my.js"></script>
-       <script src="https://cdn.datatables.net/v/bs5/dt-2.3.4/datatables.min.js" integrity="sha384-jVoHjtunWKmr2zpSki5PSXfFYRsTQQm1uk4wpf45zuYxast668XkB2fJL8PjloNc" crossorigin="anonymous"></script>
+
        </body>
 
        </html>

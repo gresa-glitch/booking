@@ -27,10 +27,23 @@ class Payments_model extends CI_Model
         ];
     }
 
+    public function sumTotalTransaction()
+    {
+        $query = $this->db->query("SELECT sum(total_payment) as 'total_transaction' FROM payments WHERE payment_date = curdate()");
+        return $query->row()->total_transaction; // return berupa array objek
+    }
+
+    public function qtyTransaction()
+    {
+        $query = $this->db->query("SELECT * FROM payments WHERE payment_date = curdate()");
+        return $query->num_rows();
+    }
+
     public function getAllJoin()
     {
         $this->db->select('*, payments.id as idpay');
         $this->db->join('booking', 'booking.id = payments.booking_id');
+        $this->db->order_by('booking.id DESC');
         return $this->db->get($this->_table)->result();
     }
 

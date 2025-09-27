@@ -37,6 +37,17 @@ class Booking_model extends CI_Model
         $this->db->select('*, booking.id as idbook');
         $this->db->join('package', 'package.id = booking.id_package');
         $this->db->join('customer', 'customer.id = booking.id_customer');
+        $this->db->order_by('booking.id DESC');
+        return $this->db->get($this->_table)->result();
+    }
+
+    public function joinPayment()
+    {
+        $this->db->select('*, booking.id as idbook');
+        $this->db->join('package', 'package.id = booking.id_package');
+        $this->db->join('customer', 'customer.id = booking.id_customer');
+        $this->db->join('payments', 'payments.booking_id = booking.id', 'left');
+        $this->db->order_by('booking.id DESC');
         return $this->db->get($this->_table)->result();
     }
 

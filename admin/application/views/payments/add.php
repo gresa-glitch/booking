@@ -7,7 +7,7 @@
                         </nav>
                         <div class="row">
                             <!-- Basic -->
-                            <div class="col-md-8">
+                            <div class="col-md-7">
                                 <div class="card mb-4">
                                     <div class="card-body demo-vertical-spacing demo-only-element">
                                         <?php if (isset($error_upload)) : ?>
@@ -97,20 +97,20 @@
                                                 </div>
                                             </div>
 
-                                            <div class="input-group mb-3">
-                                                <label class="form-label" for="">Preview</label>
-                                                <div class="input-group">
-                                                    <img src="" alt="" id="file_reload" class="form-control" style="max-width: 100%;">
-                                                </div>
-                                            </div>
-
                                             <div class="input-group mt-3 mb-2">
                                                 <button class="btn btn-primary btn-md" type="submit">Pay now</button>
                                             </div>
-
-                                        </form>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-5" id="previewFileCard">
+                                <div class="card mb-6">
+                                    <div class="card-body demo-vertical-spacing demo-only-element">
+                                        <label class="form-label" for="file_reload">Preview Invoice</label>
+                                        <img src="" alt="" id="file_reload" class="img-thumbnail img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                            </form>
                         </div>
                     </div>
