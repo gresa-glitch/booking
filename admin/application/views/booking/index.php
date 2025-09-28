@@ -24,10 +24,10 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Booking ID</th>
+                                            <th>Booking Date</th>
                                             <th>Package Name</th>
                                             <th>Customer Name</th>
-                                            <th>Booking Date</th>
-                                            <th>Photo Time</th>
+                                            <th>Price</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -37,14 +37,27 @@
                                             <tr>
                                                 <td><?= $num++; ?></td>
                                                 <td><?= $row->idbook; ?></td>
+                                                <td><?= date('d-m-Y', strtotime($row->booking_date)); ?></td>
                                                 <td><?= $row->item; ?></td>
                                                 <td><?= $row->name; ?></td>
-                                                <td><?= date('d-m-Y', strtotime($row->booking_date)); ?></td>
-                                                <td><?= date('H:s', strtotime($row->photo_time)) . " WIB"; ?></td>
                                                 <td>
-                                                    <a class="text-primary" href="<?= base_url('booking/edit/' . $row->idbook) ?>"><i class='bx  bx-pencil'></i></a>
-                                                    &nbsp;
-                                                    <a class="text-danger" href="<?= base_url('booking/delete/' . $row->idbook) ?>"><i class='bx  bx-trash'></i></a>
+                                                    <?php
+                                                    if ($row->total_payment !== null) {
+                                                        echo "Rp" . number_format($row->total_payment);
+                                                    } else {
+                                                        echo 'Rp0'; // Or handle the null case as appropriate
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php
+                                                    if ($row->booking_status === "Settlement") { ?>
+                                                        <a href="<?= base_url('home'); ?>">Detail Order</a>
+                                                    <?php } else { ?>
+                                                        <a class="text-primary" href="<?= base_url('booking/edit/' . $row->idbook) ?>"><i class='bx  bx-pencil'></i></a>
+                                                        &nbsp;
+                                                        <a class="text-danger" href="<?= base_url('booking/delete/' . $row->idbook) ?>"><i class='bx  bx-trash'></i></a>
+                                                    <?php } ?>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

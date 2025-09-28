@@ -17,6 +17,7 @@ class Home extends CI_Controller
             'menu' => "home",
             'judul' => "Dashboard",
             'fetchbooking' => $this->booking_model->joinPayment(),
+            'fetchbookingOnline' => $this->booking_model->joinPaymentOnline(),
             'sumTransaction' => $this->payments_model->sumTotalTransaction(),
             'qtyTransaction' => $this->payments_model->qtyTransaction()
         );

@@ -64,23 +64,6 @@
                                                 </div>
                                             </div>
 
-                                            <div class="input-group mb-3">
-                                                <label class="form-label" for="phototime">Photo Time</label>
-                                                <div class="input-group">
-                                                    <input
-                                                        type="time"
-                                                        class="form-control <?php echo form_error('photo_time') ? 'is-invalid' : '' ?>"
-                                                        id="phototime"
-                                                        name="photo_time"
-                                                        placeholder="Photo time"
-                                                        value="<?= $bookingParsing->photo_time; ?>"
-                                                        aria-describedby="photo_time" required />
-                                                    <div class="invalid-feedback">
-                                                        <?php echo form_error('photo_time') ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-
                                             <div class="input-group mt-3 mb-2">
                                                 <button class="btn btn-primary btn-md" type="submit">Update</button>
                                             </div>

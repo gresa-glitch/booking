@@ -29,7 +29,7 @@ class Payments extends CI_Controller
         $data = array(
             'judul' => "Add Payments",
             'menu' => 'payment',
-            'fetchbooking' => $this->booking_model->getAllJoin()
+            'fetchbooking' => $this->booking_model->getAllBooking()
         );
         $this->load->view('templates/header.php', $data);
         $this->load->view('templates/sidebar.php', $data);
@@ -68,16 +68,22 @@ class Payments extends CI_Controller
             $cutDescimalPayment = substr($post['total_payment'], 2, -2);
             $paymentsToInt = filter_var($cutDescimalPayment, FILTER_SANITIZE_NUMBER_INT);
 
+            $creatnewidpayment = uniqid();
             $new_data = array(
-                'id' => uniqid(),
-                'payment_date' => htmlspecialchars($post['payment_date']),
-                'booking_id' => htmlspecialchars($post['booking_id']),
+                'id' => $creatnewidpayment,
+                'payment_date' => date('Y-m-d'),
                 'total_payment' =>  htmlspecialchars($paymentsToInt),
                 'payment_receipt' => $uploaded_data['file_name'],
                 'status_payment' => 1
             );
 
+            $editIDPaymentBooking = array(
+                'id' => htmlspecialchars($post['booking_id']),
+                'id_payment' =>  $creatnewidpayment
+            );
+
             $this->payments_model->post($new_data);
+            $this->payments_model->updatebookingpaymentid($editIDPaymentBooking);
             $this->session->set_flashdata('success', 'Payment data has been successfully saved.');
             redirect(base_url('payments'));
         }

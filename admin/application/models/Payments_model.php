@@ -6,6 +6,8 @@ class Payments_model extends CI_Model
 
     private $_table = "payments";
 
+    private $_tbl_booking = "booking";
+
     public $id;
     // $payment_date, $booking_id, $total_payment, $payment_receipt, $status_payment;
 
@@ -29,21 +31,19 @@ class Payments_model extends CI_Model
 
     public function sumTotalTransaction()
     {
-        $query = $this->db->query("SELECT sum(total_payment) as 'total_transaction' FROM payments WHERE payment_date = curdate()");
+        $query = $this->db->query("SELECT status_payment, sum(total_payment) as 'total_transaction' FROM payments WHERE payment_date = curdate() AND status_payment = 1");
         return $query->row()->total_transaction; // return berupa array objek
     }
 
     public function qtyTransaction()
     {
-        $query = $this->db->query("SELECT * FROM payments WHERE payment_date = curdate()");
+        $query = $this->db->query("SELECT * FROM payments WHERE payment_date = curdate() AND status_payment = 1");
         return $query->num_rows();
     }
 
     public function getAllJoin()
     {
         $this->db->select('*, payments.id as idpay');
-        $this->db->join('booking', 'booking.id = payments.booking_id');
-        $this->db->order_by('booking.id DESC');
         return $this->db->get($this->_table)->result();
     }
 
@@ -55,6 +55,16 @@ class Payments_model extends CI_Model
     public function post($new_data)
     {
         return $this->db->insert($this->_table, $new_data);
+    }
+
+    public function updatebookingpaymentid($editIDPaymentBooking)
+    {
+        $data = array(
+            'id_payment' => $editIDPaymentBooking['id_payment'],
+            'booking_status' => 'Settlement'
+        );
+        $this->db->where('id', $editIDPaymentBooking['id']);
+        return $this->db->update($this->_tbl_booking, $data);
     }
 
     public function update()

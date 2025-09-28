@@ -21,34 +21,44 @@
 <!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- WhatsApp Booking Script -->
+<script src="js/myAjax.js"></script>
+
 <script>
-    document.getElementById('bookingForm').addEventListener('submit', function(e) {
-        e.preventDefault();
+    // document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    //             e.preventDefault();
 
-        const name = document.getElementById('name').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-        const date = document.getElementById('date').value;
-        const packageSelected = document.getElementById('package').value;
+    //             const name = document.getElementById('name').value.trim();
+    //             const phone = document.getElementById('phone').value.trim();
+    //             const date = document.getElementById('date').value;
+    //             const packageSelected = document.getElementById('package').value;
 
-        if (!name || !phone || !date || !packageSelected) {
-            alert('Mohon lengkapi semua data!');
-            return;
-        }
+    //             if (!name || !phone || !date || !packageSelected) {
+    //                 alert('Mohon lengkapi semua data!');
+    //                 return;
+    //             }
 
-        // Ganti nomor WhatsApp studio Anda (format internasional tanpa +)
-        const studioNumber = '6281806132508';
+    //             //jika validasi sukses maka lakukan
+    //             $.ajax({
+    //                 type: 'POST',
+    //                 url: "bookingnow.php",
+    //                 data: $('#form_input').serialize(),
+    //                 success: function() {
+    //                     //setelah simpan data, update data terbaru
 
-        const message = `Halo, saya ingin melakukan booking photo studio dengan detail berikut:%0A` +
-            `Nama: ${name}%0A` +
-            `Nomor WA: ${phone}%0A` +
-            `Tanggal dan Jam: ${date}%0A` +
-            `Paket: ${packageSelected}`;
+    //                 }
+    //                 // // Ganti nomor WhatsApp studio Anda (format internasional tanpa +)
+    //                 // const studioNumber = '6281806132508';
 
-        const whatsappURL = `https://wa.me/${studioNumber}?text=${message}`;
+    //                 // const message = `Halo, saya ingin melakukan booking photo studio dengan detail berikut:%0A` +
+    //                 //     `Nama: ${name}%0A` +
+    //                 //     `Nomor WA: ${phone}%0A` +
+    //                 //     `Tanggal dan Jam: ${date}%0A` +
+    //                 //     `Paket: ${packageSelected}`;
 
-        window.open(whatsappURL, '_blank');
-    });
+    //                 // const whatsappURL = `https://wa.me/${studioNumber}?text=${message}`;
+
+    //                 // window.open(whatsappURL, '_blank');
+    //             });
 </script>
 
 </body>

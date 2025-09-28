@@ -6,7 +6,7 @@ class Booking_model extends CI_Model
 
     private $_table = "booking";
 
-    public $id, $id_package, $booking_duration, $booking_date, $photo_time, $order_type, $booking_status;
+    public $id, $id_package, $booking_duration, $booking_date, $order_type, $booking_status;
 
     public function rules()
     {
@@ -23,13 +23,17 @@ class Booking_model extends CI_Model
                 'rules' => 'required'
             ],
 
-            [
-                'field' => 'photo_time',
-                'label' => 'Photo time',
-                'rules' => 'required'
-            ],
-
         ];
+    }
+
+    public function getAllBooking()
+    {
+        $this->db->select('*, booking.id as idbook');
+        $this->db->join('package', 'package.id = booking.id_package');
+        $this->db->join('customer', 'customer.id = booking.id_customer');
+        $this->db->order_by('booking.id ASC');
+        $this->db->where('booking_status =', 'Waiting');
+        return $this->db->get($this->_table)->result();
     }
 
     public function getAllJoin()
@@ -37,6 +41,7 @@ class Booking_model extends CI_Model
         $this->db->select('*, booking.id as idbook');
         $this->db->join('package', 'package.id = booking.id_package');
         $this->db->join('customer', 'customer.id = booking.id_customer');
+        $this->db->join('payments', 'payments.id = booking.id_payment', 'left');
         $this->db->order_by('booking.id DESC');
         return $this->db->get($this->_table)->result();
     }
@@ -46,7 +51,18 @@ class Booking_model extends CI_Model
         $this->db->select('*, booking.id as idbook');
         $this->db->join('package', 'package.id = booking.id_package');
         $this->db->join('customer', 'customer.id = booking.id_customer');
-        $this->db->join('payments', 'payments.booking_id = booking.id', 'left');
+        $this->db->join('payments', 'payments.id = booking.id_payment', 'left');
+        $this->db->order_by('booking.id DESC');
+        return $this->db->get($this->_table)->result();
+    }
+
+    public function joinPaymentOnline()
+    {
+        $this->db->select('*, booking.id as idbook');
+        $this->db->join('package', 'package.id = booking.id_package');
+        $this->db->join('customer', 'customer.id = booking.id_customer');
+        $this->db->join('payments', 'payments.id = booking.id_payment', 'left');
+        $this->db->where('order_type =', 'Online');
         $this->db->order_by('booking.id DESC');
         return $this->db->get($this->_table)->result();
     }
@@ -92,9 +108,8 @@ class Booking_model extends CI_Model
         htmlspecialchars($this->id_package = $post['id_pakcage']);
         htmlspecialchars($this->booking_duration = $post['booking_duration']);
         htmlspecialchars($this->booking_date = $post['booking_date']);
-        htmlspecialchars($this->photo_time = $post['photo_time']);
         htmlspecialchars($this->order_type = "Offline");
-        htmlspecialchars($this->booking_status = 0);
+        htmlspecialchars($this->booking_status = "Waiting");
 
         return $this->db->insert($this->_table, $this);
     }
@@ -106,7 +121,6 @@ class Booking_model extends CI_Model
         htmlspecialchars($this->id_package = $post['id_pakcage']);
         htmlspecialchars($this->booking_duration = $post['booking_duration']);
         htmlspecialchars($this->booking_date = $post['booking_date']);
-        htmlspecialchars($this->photo_time = $post['photo_time']);
         htmlspecialchars($this->order_type = "Offline");
         return $this->db->update($this->_table, $this, array('id' => $post['id']));
     }

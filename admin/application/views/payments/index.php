@@ -24,7 +24,6 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Payment Date</th>
-                                            <th>Booking Number</th>
                                             <th>Total Payment</th>
                                             <th>Payment Receipt</th>
                                             <th>Action</th>
@@ -36,7 +35,6 @@
                                             <tr>
                                                 <td><?= $num++; ?></td>
                                                 <td><?= date('d-m-Y', strtotime($row->payment_date)); ?></td>
-                                                <td><?= $row->booking_id; ?></td>
                                                 <td><?= "Rp " . number_format($row->total_payment); ?></td>
                                                 <td>
                                                     <img src="<?= base_url('upload/payments/' . $row->payment_receipt); ?>" alt="<?= $row->payment_receipt; ?>" width="100px">

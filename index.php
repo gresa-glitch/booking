@@ -148,32 +148,31 @@
 <section id="booking" class="py-5 bg-light">
     <div class="container">
         <h2 class="text-center mb-5 fw-bold">Booking Sekarang</h2>
+        <div id="pesan" class="text-center"></div>
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <form id="bookingForm">
                     <div class="mb-3">
                         <label htmlFor="name" class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="name" placeholder="Masukkan nama lengkap" required />
+                        <input type="text" class="form-control" id="name" placeholder="Masukkan nama lengkap" />
                     </div>
                     <div class="mb-3">
                         <label htmlFor="phone" class="form-label">Nomor WhatsApp</label>
-                        <input type="tel" class="form-control" id="phone" placeholder="Contoh: 081234567890" pattern="[0-9]{9,15}" required />
+                        <input type="tel" class="form-control" id="phone" placeholder="Contoh: 081234567890" pattern="[0-9]{9,15}" />
                         <div class="form-text">Masukkan nomor tanpa tanda + atau spasi</div>
                     </div>
                     <div class="mb-3">
                         <label htmlFor="date" class="form-label">Tanggal Booking</label>
-                        <input type="datetime-local" class="form-control" id="date" required />
+                        <input type="date" class="form-control" id="datebooking" />
                     </div>
                     <div class="mb-3">
                         <label htmlFor="package" class="form-label">Paket Foto</label>
-                        <select class="form-select" id="package" required>
+                        <select class="form-select" id="package">
                             <option value="" selected disabled>Pilih paket</option>
                             <option value="Paket Basic">Paket Basic - 1 jam, 10 foto</option>
-                            <option value="Paket Premium">Paket Premium - 2 jam, 25 foto</option>
-                            <option value="Paket Deluxe">Paket Deluxe - 3 jam, 50 foto + cetak</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Booking Sekarang</button>
+                    <button type="submit" id="btnBooking" class="btn btn-primary w-100">Booking Sekarang</button>
                 </form>
             </div>
         </div>

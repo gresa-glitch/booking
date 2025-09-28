@@ -18,22 +18,6 @@
                                         <form action="<?= base_url('payments/save') ?>" method="post" enctype="multipart/form-data">
 
                                             <div class="input-group mb-3">
-                                                <label class="form-label" for="datepayment">Payment Date</label>
-                                                <div class="input-group">
-                                                    <input
-                                                        type="date"
-                                                        class="form-control <?php echo form_error('payment_date') ? 'is-invalid' : '' ?>"
-                                                        id="datepayment"
-                                                        name="payment_date"
-                                                        placeholder="Booking date"
-                                                        aria-describedby="payment_date" required />
-                                                    <div class="invalid-feedback">
-                                                        <?php echo form_error('payment_date') ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="input-group mb-3">
                                                 <label class="form-label" for="id_book">ID Booking</label>
                                                 <div class="input-group">
                                                     <select name="booking_id" id="id_book" class="form-control" required>
