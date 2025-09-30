@@ -34,7 +34,7 @@
                                         foreach ($fetchpayment as $row) : ?>
                                             <tr>
                                                 <td><?= $num++; ?></td>
-                                                <td><?= date('d-m-Y', strtotime($row->payment_date)); ?></td>
+                                                <td><?= $row->payment_date  == null ? "Waiting" : date('d-m-Y', strtotime($row->payment_date)); ?></td>
                                                 <td><?= "Rp " . number_format($row->total_payment); ?></td>
                                                 <td>
                                                     <img src="<?= base_url('upload/payments/' . $row->payment_receipt); ?>" alt="<?= $row->payment_receipt; ?>" width="100px">

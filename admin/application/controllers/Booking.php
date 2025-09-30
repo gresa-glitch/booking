@@ -17,12 +17,22 @@ class Booking extends CI_Controller
         $data = array(
             'judul' => "Booking",
             'menu' => 'booking',
-            'fetchbooking' => $this->booking_model->getAllJoin()
+            'fetchbooking' => $this->booking_model->getAllJoin(),
+            'photoquee' => $this->booking_model->getPhotoQuee()
         );
         $this->load->view('templates/header.php', $data);
         $this->load->view('templates/sidebar.php', $data);
         $this->load->view('booking/index.php', $data);
         $this->load->view('templates/footer.php');
+    }
+
+    public function finishqueue($id = null)
+    {
+        if (!isset($id)) show_404();
+        if ($this->booking_model->updateAuto($id)) {
+            $this->session->set_flashdata('queue', 'Photo queue completed successfully.');
+            redirect(base_url() . 'home');
+        }
     }
 
     public function add()

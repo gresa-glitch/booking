@@ -6,7 +6,7 @@ class Booking_model extends CI_Model
 
     private $_table = "booking";
 
-    public $id, $id_package, $booking_duration, $booking_date, $order_type, $booking_status;
+    public $id, $id_package, $booking_duration, $booking_date, $order_type, $booking_status, $status_booking_queue;
 
     public function rules()
     {
@@ -26,6 +26,16 @@ class Booking_model extends CI_Model
         ];
     }
 
+    public function updateAuto($id)
+    {
+
+        $data = array(
+            'status_booking_queue' => 'Finish'
+        );
+
+        return $this->db->update($this->_table, $data, array('id' => $id));
+    }
+
     public function getAllBooking()
     {
         $this->db->select('*, booking.id as idbook');
@@ -33,6 +43,7 @@ class Booking_model extends CI_Model
         $this->db->join('customer', 'customer.id = booking.id_customer');
         $this->db->order_by('booking.id ASC');
         $this->db->where('booking_status =', 'Waiting');
+        $this->db->where('order_type =', 'Offline');
         return $this->db->get($this->_table)->result();
     }
 
@@ -43,6 +54,19 @@ class Booking_model extends CI_Model
         $this->db->join('customer', 'customer.id = booking.id_customer');
         $this->db->join('payments', 'payments.id = booking.id_payment', 'left');
         $this->db->order_by('booking.id DESC');
+        $this->db->where('payments.status_payment =', 0);
+        return $this->db->get($this->_table)->result();
+    }
+
+    public function getPhotoQuee()
+    {
+        $this->db->select('*, booking.id as idbook');
+        $this->db->join('package', 'package.id = booking.id_package');
+        $this->db->join('customer', 'customer.id = booking.id_customer');
+        $this->db->join('payments', 'payments.id = booking.id_payment', 'left');
+        $this->db->order_by('booking.id DESC');
+        $this->db->where('payments.status_payment =', 1);
+        $this->db->where('booking.status_booking_queue =', 'Proggress');
         return $this->db->get($this->_table)->result();
     }
 
@@ -53,6 +77,7 @@ class Booking_model extends CI_Model
         $this->db->join('customer', 'customer.id = booking.id_customer');
         $this->db->join('payments', 'payments.id = booking.id_payment', 'left');
         $this->db->order_by('booking.id DESC');
+        $this->db->where('order_type =', 'Offline');
         return $this->db->get($this->_table)->result();
     }
 
@@ -110,6 +135,7 @@ class Booking_model extends CI_Model
         htmlspecialchars($this->booking_date = $post['booking_date']);
         htmlspecialchars($this->order_type = "Offline");
         htmlspecialchars($this->booking_status = "Waiting");
+        htmlspecialchars($this->status_booking_queue = "Proggress");
 
         return $this->db->insert($this->_table, $this);
     }

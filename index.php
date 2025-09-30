@@ -1,4 +1,8 @@
-<?php include "header/header.php"; ?>
+<?php
+
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+
+include "header/header.php"; ?>
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
@@ -151,28 +155,38 @@
         <div id="pesan" class="text-center"></div>
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form id="bookingForm">
+                <form id="bookingForm" action="controller/booking.php" method="post">
                     <div class="mb-3">
                         <label htmlFor="name" class="form-label">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="name" placeholder="Masukkan nama lengkap" />
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan nama lengkap dengan gelar anda" required />
+                    </div>
+                    <div class="mb-3">
+                        <label htmlFor="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan email anda" required />
                     </div>
                     <div class="mb-3">
                         <label htmlFor="phone" class="form-label">Nomor WhatsApp</label>
-                        <input type="tel" class="form-control" id="phone" placeholder="Contoh: 081234567890" pattern="[0-9]{9,15}" />
+                        <input type="tel" class="form-control" id="phone" name="phone" required placeholder="Contoh: 081234567890" pattern="[0-9]{9,15}" />
                         <div class="form-text">Masukkan nomor tanpa tanda + atau spasi</div>
                     </div>
                     <div class="mb-3">
                         <label htmlFor="date" class="form-label">Tanggal Booking</label>
-                        <input type="date" class="form-control" id="datebooking" />
+                        <input type="date" class="form-control" id="datebooking" name="booking_date" required />
+                    </div>
+                    <div class="mb-3">
+                        <label htmlFor="date" class="form-label">Booking Duration</label>
+                        <input type="number" min="1" class="form-control" id="booking_duration" name="booking_duration" required />
                     </div>
                     <div class="mb-3">
                         <label htmlFor="package" class="form-label">Paket Foto</label>
-                        <select class="form-select" id="package">
+                        <select class="form-select" id="package" name="id_package" required>
                             <option value="" selected disabled>Pilih paket</option>
-                            <option value="Paket Basic">Paket Basic - 1 jam, 10 foto</option>
+                            <?php foreach ($data as $key) : ?>
+                                <option value="<?= $key['id']; ?>"><?= $key['item'] . " Rp" . number_format($key['price']); ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
-                    <button type="submit" id="btnBooking" class="btn btn-primary w-100">Booking Sekarang</button>
+                    <button type="submit" id="btnBooking" name="btnBook" class="btn btn-primary w-100">Booking Sekarang</button>
                 </form>
             </div>
         </div>

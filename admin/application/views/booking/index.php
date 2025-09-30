@@ -23,11 +23,10 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Booking ID</th>
                                             <th>Booking Date</th>
+                                            <th>Payment Date</th>
                                             <th>Package Name</th>
                                             <th>Customer Name</th>
-                                            <th>Price</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -36,19 +35,10 @@
                                         foreach ($fetchbooking as $row) : ?>
                                             <tr>
                                                 <td><?= $num++; ?></td>
-                                                <td><?= $row->idbook; ?></td>
                                                 <td><?= date('d-m-Y', strtotime($row->booking_date)); ?></td>
+                                                <td><?= $row->payment_date == null ? "Not Paid" : date('d-m-Y', strtotime($row->payment_date)); ?></td>
                                                 <td><?= $row->item; ?></td>
                                                 <td><?= $row->name; ?></td>
-                                                <td>
-                                                    <?php
-                                                    if ($row->total_payment !== null) {
-                                                        echo "Rp" . number_format($row->total_payment);
-                                                    } else {
-                                                        echo 'Rp0'; // Or handle the null case as appropriate
-                                                    }
-                                                    ?>
-                                                </td>
                                                 <td>
                                                     <?php
                                                     if ($row->booking_status === "Settlement") { ?>
@@ -59,6 +49,49 @@
                                                         <a class="text-danger" href="<?= base_url('booking/delete/' . $row->idbook) ?>"><i class='bx  bx-trash'></i></a>
                                                     <?php } ?>
                                                 </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!--/ Basic Bootstrap Table -->
+                    </div>
+                    <!-- / Content -->
+
+                    <div class="container-xxl flex-grow-1 container-p-y">
+
+                        <!-- Basic Bootstrap Table -->
+                        <div class="card">
+                            <?php if ($this->session->flashdata('success')): ?>
+                                <div class="alert alert-primary" role="alert">
+                                    <?= $this->session->flashdata('success') ?>
+                                </div>
+                            <?php else: echo ''; ?>
+                            <?php endif ?>
+                            <h5 class="card-header">
+                                <a class="btn btn-sm btn-warning" href="#">Photo Queue</a>
+                            </h5>
+                            <div class="table-responsive text-nowrap">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Booking Date</th>
+                                            <th>Payment Date</th>
+                                            <th>Package Name</th>
+                                            <th>Customer Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-border-bottom-0">
+                                        <?php $num = 1;
+                                        foreach ($photoquee as $row) : ?>
+                                            <tr>
+                                                <td><?= $num++; ?></td>
+                                                <td><?= date('d-m-Y', strtotime($row->booking_date)); ?></td>
+                                                <td><?= $row->payment_date == null ? "Not Paid" : date('d-m-Y', strtotime($row->payment_date)); ?></td>
+                                                <td><?= $row->item; ?></td>
+                                                <td><?= $row->name; ?></td>
                                             </tr>
                                         <?php endforeach; ?>
                                     </tbody>

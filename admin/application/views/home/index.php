@@ -30,8 +30,59 @@
                         <div class="row">
                             <div class="col-lg-12 mb-4 order-0">
                                 <div class="card">
+                                    <?php if ($this->session->flashdata('queue')): ?>
+                                        <div class="alert alert-success" role="alert">
+                                            <?= $this->session->flashdata('queue') ?>
+                                        </div>
+                                    <?php else: echo ''; ?>
+                                    <?php endif ?>
                                     <h5 class="card-header">
-                                        Current Booking <span class="text-primary">Offline</span>
+                                        <a class="btn btn-sm btn-warning" href="#">Photo Queue</a>
+                                    </h5>
+                                    <div class="d-flex align-items-end row">
+                                        <div class="col-sm-12">
+                                            <div class="card-body">
+                                                <div class="table-responsive text-nowrap">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>No</th>
+                                                                <th>Booking Date</th>
+                                                                <th>Payment Date</th>
+                                                                <th>Package Name</th>
+                                                                <th>Customer Name</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody class="table-border-bottom-0">
+                                                            <?php $num = 1;
+                                                            foreach ($photoquee as $row) : ?>
+                                                                <tr>
+                                                                    <td><?= $num++; ?></td>
+                                                                    <td><?= date('d-m-Y', strtotime($row->booking_date)); ?></td>
+                                                                    <td><?= $row->payment_date == null ? "Not Paid" : date('d-m-Y', strtotime($row->payment_date)); ?></td>
+                                                                    <td><?= $row->item; ?></td>
+                                                                    <td><?= $row->name; ?></td>
+                                                                    <td>
+                                                                        <a href="<?= base_url('booking/finishqueue/') . $row->idbook; ?>" class="btn btn-sm btn-primary rounded-pill"><i class='bx  bx-checkbox-checked'></i> Complete</a>
+                                                                    </td>
+                                                                </tr>
+                                                            <?php endforeach; ?>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12 mb-4 order-0">
+                                <div class="card">
+                                    <h5 class="card-header">
+                                        <a class="btn btn-sm btn-primary" href="#">Current Booking Offline</a>
                                     </h5>
                                     <div class="d-flex align-items-end row">
                                         <div class="col-sm-12">
@@ -45,7 +96,7 @@
                                                                 <th>Package Name</th>
                                                                 <th>Customer Name</th>
                                                                 <th>Total</th>
-                                                                <th>Status</th>
+                                                                <th>Status Payment</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody class="table-border-bottom-0">
@@ -66,13 +117,9 @@
                                                                     <td>
                                                                         <?php
                                                                         if ($row->booking_status == "Waiting") { ?>
-                                                                            <div class="alert-danger rounded-pill text-center pt-1 pb-1" style="width: 115px;">
-                                                                                <i class='bx  bx-radio-circle-marked'></i> <?= $row->booking_status; ?>
-                                                                            </div>
+                                                                            <button class="btn btn-sm btn-danger rounded-pill"><i class='bx  bx-radio-circle-marked'></i> <?= $row->booking_status; ?></button>
                                                                         <?php } else { ?>
-                                                                            <div class="alert-success rounded-pill text-center pt-1 pb-1" style="width: 115px;">
-                                                                                <i class='bx  bx-radio-circle-marked'></i> Settlement
-                                                                            </div>
+                                                                            <button class="btn btn-sm btn-success rounded-pill"><i class='bx  bx-radio-circle-marked'></i> <?= $row->booking_status; ?></button>
                                                                         <?php } ?>
                                                                     </td>
                                                                 </tr>
@@ -90,7 +137,7 @@
                             <div class="col-lg-12 mb-4 order-0">
                                 <div class="card">
                                     <h5 class="card-header">
-                                        Current Booking <span class="text-success">Online</span>
+                                        <a class="btn btn-sm btn-success" href="#">Current Booking Online</a>
                                     </h5>
                                     <div class="d-flex align-items-end row">
                                         <div class="col-sm-12">
@@ -104,7 +151,7 @@
                                                                 <th>Package Name</th>
                                                                 <th>Customer Name</th>
                                                                 <th>Total</th>
-                                                                <th>Status</th>
+                                                                <th>Status Payment</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody class="table-border-bottom-0">
@@ -125,13 +172,9 @@
                                                                     <td>
                                                                         <?php
                                                                         if ($row->booking_status == "Waiting") { ?>
-                                                                            <div class="alert-danger rounded-pill text-center pt-1 pb-1" style="width: 115px;">
-                                                                                <i class='bx  bx-radio-circle-marked'></i> <?= $row->booking_status; ?>
-                                                                            </div>
+                                                                            <button class="btn btn-sm btn-danger rounded-pill"><i class='bx  bx-radio-circle-marked'></i> <?= $row->booking_status; ?></button>
                                                                         <?php } else { ?>
-                                                                            <div class="alert-success rounded-pill text-center pt-1 pb-1" style="width: 115px;">
-                                                                                <i class='bx  bx-radio-circle-marked'></i> Settlement
-                                                                            </div>
+                                                                            <button class="btn btn-sm btn-success rounded-pill"><i class='bx  bx-radio-circle-marked'></i> <?= $row->booking_status; ?></button>
                                                                         <?php } ?>
                                                                     </td>
                                                                 </tr>

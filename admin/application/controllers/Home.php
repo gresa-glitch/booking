@@ -19,7 +19,8 @@ class Home extends CI_Controller
             'fetchbooking' => $this->booking_model->joinPayment(),
             'fetchbookingOnline' => $this->booking_model->joinPaymentOnline(),
             'sumTransaction' => $this->payments_model->sumTotalTransaction(),
-            'qtyTransaction' => $this->payments_model->qtyTransaction()
+            'qtyTransaction' => $this->payments_model->qtyTransaction(),
+            'photoquee' => $this->booking_model->getPhotoQuee()
         );
         $this->load->view('templates/header.php', $data);
         $this->load->view('templates/sidebar.php', $data);
