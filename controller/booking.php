@@ -63,8 +63,8 @@ if (isset($_POST['btnBook'])) :
         $run_sql_cust = mysqli_query($conn, $sql_cust) or die(mysqli_error($conn));
 
         // // insert data booking after customer register
-        $sql_booking = "INSERT INTO booking (id, id_package, id_customer, booking_duration, booking_date, order_type, booking_status)
-        VALUES ('$finalOrderId', '$post_id_package', '$id_customer', '$post_booking_duration', '$post_booking_date', 'Online', 'Waiting')";
+        $sql_booking = "INSERT INTO booking (id, id_package, id_customer, booking_duration, booking_date, order_type, booking_status, status_booking_queue)
+        VALUES ('$finalOrderId', '$post_id_package', '$id_customer', '$post_booking_duration', '$post_booking_date', 'Online', 'Waiting', 'Proggress')";
         $sql_booking = mysqli_query($conn, $sql_booking) or die(mysqli_error($conn));
 
         // // insert data payment after customer make a booking
@@ -73,21 +73,17 @@ if (isset($_POST['btnBook'])) :
         $sql_payment = mysqli_query($conn, $sql_payment) or die(mysqli_error($conn));
         // update data payment di booking table
         $sql_update_payment_id = mysqli_query($conn, "UPDATE booking SET id_payment = '$id_payment' WHERE id = '$finalOrderId'");
-
-        $string = "
-        Silahkan melakukan pembayaran untuk pemesanan booking studio
-        dengan paket " . $item . " dengan harga " . $total_payment . ". Gunakan BA " . $id_payment . " agar transaksi lebih fast respon.
-        setelah melakukan pembayaran, silahkan klik link berikut untuk konfirmasi pembayaran
-        http://booking.test/payment.php?idpay=" . $id_payment . " Terima kasih.";
-        // let encodedMessage = encodeURIComponent(message);
-        // let link = `https://wa.me/?text=${encodedMessage}`;
-        if ($sql_update_payment_id) {
-                $link = "http://booking.test/payment.php?id=";
-                echo '<script type="text/javascript">
-                alert("Booking berhasil dibuat, anda akan dialihkan ke bagian Admin!")
-                window.location.href="https://wa.me/6281806132508?text=Silahkan%20lakukan%20pembayaran.%20Setelah%20melakukan%20pembayaran,%20klik%0Ahttp://booking.test/payment.php?id=' . $id_payment . '"
-                </script>';
-        }
-
+?>
+        <script text="text.javascript">
+                // URL konfirmasi pembayaran (bisa disesuaikan dengan sistemmu)
+                const orderid = `<?= $finalOrderId; ?>`;
+                const paymentUrl = `http://localhost/booking/payment.php?booking=${orderid}`;
+                const messageToCustomer = `*Konfirmasi pembayaran*\n Hi <?= $post_name; ?>,\nBerikut ini merupakan konfirmasi pembayaran tagihan anda dengan nomor invoice \`#<?= $id_payment; ?>\`.\nStatus invoice Anda: Not Paid ✘ (Silahkan lakukan pembayaran terlebih dahulu dengan detail tagihan sebagai berikut:\n\n *Paket : <?= $item; ?>*\n *Durasi : <?= $post_booking_duration; ?> Jam*\n*Total Pembayaran : <?= "Rp" . number_format($total_payment); ?>* \n\n_Dengan nomor *Booking <?= $finalOrderId; ?>*_\n\nSetelah anda melakukan pembayaran, silahkan kunjungi alamat berikut untuk mengkonfirmasi pembayaran yang sudah dilakukan.\n\nURL pembayaran : ${paymentUrl} \n\nBest regard,\nAdmin Randi Studio Terima kasih.`;
+                const encoded = encodeURIComponent(messageToCustomer);
+                const waLink = `https://wa.me/+62<?= @substr($post_phone, 1, 11); ?>?text=${encoded}`;
+                // buka WA dengan pesan otomatis
+                window.open(waLink, "_self");
+        </script>
+<?php
 endif;
 mysqli_close($conn); // Tutup koneksi database

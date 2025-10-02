@@ -3,7 +3,6 @@
 require_once "controller/db.php";
 require_once "controller/Package.php";
 $data = getPackage();
-$data = getPackage();
 ?>
 <!DOCTYPE html>
 <html lang="id">
